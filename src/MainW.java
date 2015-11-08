@@ -1,24 +1,9 @@
-import org.jsoup.Jsoup;
-
 import javax.swing.*;
-import javax.swing.Timer;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.*;
-import java.util.List;
-import java.util.ArrayList;
-
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 public class MainW extends JFrame implements ActionListener{
 
@@ -53,7 +38,7 @@ public class MainW extends JFrame implements ActionListener{
         RssJTable tAuto = new RssJTable(s_conect_auto, "Auto");
         RssJTable tTech = new RssJTable(s_conect_tech, "Technology");
         RssJTable tRealt = new RssJTable(s_conect_realt, "Realt");
-        
+
         getContentPane().add(tPeople);
         getContentPane().add(tAuto);
         getContentPane().add(tTech);
@@ -63,8 +48,6 @@ public class MainW extends JFrame implements ActionListener{
         CreateScroll(tAuto);
         CreateScroll(tTech);
         CreateScroll(tRealt);
-
-
 
         setSize(520, 500);
         setUndecorated(true);

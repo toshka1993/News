@@ -40,7 +40,7 @@ public class RssJTable extends JTable {
             }
         });
 
-        timer.setDelay(10000); // delay for 30 seconds
+        timer.setDelay(10000);
         timer.start();
     }
 
@@ -120,8 +120,8 @@ public class RssJTable extends JTable {
                 if (Desktop.isDesktopSupported()) {
                     try {
                         Desktop.getDesktop().browse(uri);
-                    } catch (IOException e) { /* TODO: error handling */ }
-                } else { /* TODO: error handling */ }
+                    } catch (IOException e) { }
+                } else {  }
             }
 
         });

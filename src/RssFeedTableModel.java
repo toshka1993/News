@@ -1,5 +1,3 @@
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +26,6 @@ public class RssFeedTableModel extends AbstractTableModel {
         switch (columnIndex) {
             case 0:
                 return entries.get(rowIndex).title;
-         //   case 1:
-          //      return entries.get(rowIndex).link;
         }
         return null;
     }
