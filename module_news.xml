@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_news" default="compile.module.news">
+  <dirname property="module.news.basedir" file="${ant.file.module_news}"/>
+  
+  <property name="module.jdk.home.news" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.news" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.news" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.news" value="-encoding windows-1251 -source 8 ${compiler.args}"/>
+  
+  <property name="news.output.dir" value="${module.news.basedir}/out/production/News"/>
+  <property name="news.testoutput.dir" value="${module.news.basedir}/out/test/News"/>
+  
+  <path id="news.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="news.module.production.classpath">
+    <path refid="${module.jdk.classpath.news}"/>
+    <path refid="library.jsoup-1.8.3.classpath"/>
+    <path refid="library.jsoup-1.8.3-sources.classpath"/>
+    <path refid="library.jsoup-1.8.3-javadoc.classpath"/>
+  </path>
+  
+  <path id="news.runtime.production.module.classpath">
+    <pathelement location="${news.output.dir}"/>
+    <path refid="library.jsoup-1.8.3.classpath"/>
+    <path refid="library.jsoup-1.8.3-sources.classpath"/>
+    <path refid="library.jsoup-1.8.3-javadoc.classpath"/>
+  </path>
+  
+  <path id="news.module.classpath">
+    <path refid="${module.jdk.classpath.news}"/>
+    <pathelement location="${news.output.dir}"/>
+    <path refid="library.jsoup-1.8.3.classpath"/>
+    <path refid="library.jsoup-1.8.3-sources.classpath"/>
+    <path refid="library.jsoup-1.8.3-javadoc.classpath"/>
+  </path>
+  
+  <path id="news.runtime.module.classpath">
+    <pathelement location="${news.testoutput.dir}"/>
+    <pathelement location="${news.output.dir}"/>
+    <path refid="library.jsoup-1.8.3.classpath"/>
+    <path refid="library.jsoup-1.8.3-sources.classpath"/>
+    <path refid="library.jsoup-1.8.3-javadoc.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.news">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.news">
+    <patternset refid="excluded.from.module.news"/>
+  </patternset>
+  
+  <path id="news.module.sourcepath">
+    <dirset dir="${module.news.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.news" depends="compile.module.news.production,compile.module.news.tests" description="Compile module News"/>
+  
+  <target name="compile.module.news.production" depends="register.custom.compilers" description="Compile module News; production classes">
+    <mkdir dir="${news.output.dir}"/>
+    <javac2 destdir="${news.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.news}/javac">
+      <compilerarg line="${compiler.args.news}"/>
+      <bootclasspath refid="news.module.bootclasspath"/>
+      <classpath refid="news.module.production.classpath"/>
+      <src refid="news.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.news"/>
+    </javac2>
+    
+    <copy todir="${news.output.dir}">
+      <fileset dir="${module.news.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.news.tests" depends="register.custom.compilers,compile.module.news.production" description="compile module News; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.news" description="cleanup module">
+    <delete dir="${news.output.dir}"/>
+    <delete dir="${news.testoutput.dir}"/>
+  </target>
+</project>
