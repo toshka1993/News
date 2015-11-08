@@ -1,3 +1,5 @@
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +10,10 @@ public class RssFeedTableModel extends AbstractTableModel {
     public void updateTable (List<FeedMessage> entries) {
         this.entries = entries;
         fireTableDataChanged();
+    }
+
+    public List<FeedMessage> getList() {
+        return entries;
     }
 
     public int getRowCount() {
